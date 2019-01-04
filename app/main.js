@@ -14,7 +14,7 @@ autoUpdater.logger = log;
 autoUpdater.logger.transports.file.level = 'info';
 log.info('App starting...');
 
-const server = 'https://github.com/dk06/tinyblock-electronjs'
+const server = 'https://github.com/dk06/tinayblock'
 const feed = `${server}/update/${process.platform}/${app.getVersion()}`;
 autoUpdater.setFeedURL(feed)
 

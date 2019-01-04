@@ -1,0 +1,5 @@
+<div ng-if='isArray(data.value) && data.value.length > 0' ng-include="'./templates/shared/transaction_col_data.html'" ng-init='data = d' ng-repeat='d in data.value track by $index'></div>
+
+<div ng-if='!isArray(data.value)' class='text-truncate' ng-class='{"font-weight-bold":$rowIndex == 0, "has-link": data.txLink}' ng-click='data.txLink ? openLink(data.txLink) : ""'>
+	{{data.value}}
+</div>

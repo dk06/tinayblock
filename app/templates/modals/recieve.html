@@ -1,0 +1,27 @@
+<div class="modal fade money-receive" id="receive-coin">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+		<div class="modal-content py-4">
+			<div class="modal-body">
+				<h4 class="mb-4 border-bottom">RECEIVE {{coin.name | uppercase}}</h4>
+
+				<div class="amount d-flex align-items-center justify-content-between flex-column">
+					<h5 class="m-1 text-secondary">Address</h5>
+					<h4 class="d-flex align-items-center">
+						{{coin.wallet.publicKey}}
+					</h4>
+				</div>
+				<hr>
+				<div class="qr-code text-center">
+					<img class="w-25" src="images/qr-code.svg">
+				</div>
+			</div>
+			<div class="modal-footer d-block d-sm-flex justify-content-between text-center">
+				<button type="button" class="btn btn-default choose-btn position-relative mb-4 mb-sm-4" ><span class="lnr lnr-camera"></span><input type="file" name="pic" accept="image/*"></button>
+				<div class="rgt-btn">
+					<!-- <button type="button" class="btn btn-default mr-3" data-dismiss="modal">CANCEL</button> -->
+					<button type="button" class="btn btn-primary" data-dismiss="modal">OKAY</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

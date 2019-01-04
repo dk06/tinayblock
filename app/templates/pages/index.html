@@ -1,0 +1,29 @@
+<div ng-include="'./templates/shared/header.html'" ng-init='backlink="#!/"; title="Wallets";'></div>
+<div class='container'>
+	<div class='row'>
+		<div class='col-sm-12 fw-200 my-5 pt-3'>
+			<!-- <div class='d-flex align-items-center'>
+				<a href="#/!" class="lnr lnr-chevron-left h6 ml-neg-20"></a>
+				<span class='h2 text-secondary ml-1'>Wallets</span>
+			</div> -->
+			<div class="card card-body">
+				<ul class='list-group'>
+					<li class='list-group-item border-0 px-0 py-2' ng-repeat='(key, coin) in coinList'>
+						<h4 class="font-weight-light">
+							<a href='#!home/{{key}}'>
+								{{coin.name}}
+							</a>
+							<span class='float-right'>{{coin.symbol}} {{coin.balance || '0.00'}}</span>
+						</h4>
+						<div class='alert alert-danger'>
+							Private Key: {{coin.wallet.privateKey}}
+						</div>
+						<div class='alert alert-success'>
+							Public Key: {{coin.wallet.publicKey}}
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

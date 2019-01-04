@@ -1,0 +1,18 @@
+<div class="mid-section py-5 my-5">
+	<div ng-hide='currentStep.message.text'>
+		<h5 class="fw-200 mb-3">Opening Wallet</h5>
+
+		<div class='loader' ng-show='currentStep.showLoading'></div>
+	</div>
+	
+	<h5 class='fw-200 text-{{currentStep.message.type}}'>{{currentStep.message.text}}</h5>
+	
+	<div class="col-sm-4 offset-sm-4">
+		<!-- <input class="form-control text-center" type="password" ng-model='password'> -->
+	</div>
+</div>
+<!-- <button type="button" class="btn btn-sm btn-default" ng-click='goBack("password")'>Go Back</button> -->
+<button type="button" class="btn btn-sm btn-default" ng-click='clearWallet()'>Clear Wallet</button>
+<button type="button" class="btn btn-sm btn-default" ng-click='goToWalletRecovery()'>Recover Wallet</button>
+<button type="button" class="btn btn-sm btn-primary" ng-if='!currentStep.showGenerateButton'><a href='#!index' style='text-decoration: none;color:white;'>Continue</a></button>
+<button type="button" class="btn btn-sm btn-primary" ng-click='generateWallets()' ng-if='currentStep.showGenerateButton'>Generate Wallet</button>

@@ -1,0 +1,498 @@
+body {
+	font-family: 'Source Sans Pro', sans-serif;
+	background: whitesmoke;
+}
+a {
+	cursor: pointer;
+}
+/*-----------------------------
+
+						common css
+
+-------------------------------*/
+.fw-200 {
+	font-weight: 200;
+}
+.fw-300 {
+	font-weight: 300;
+}
+.ml-neg-20{
+	margin-left: -20px;
+}
+.mt-10-neg {
+	margin-top: -10px;
+}
+.max-320 {
+	max-width: 320px;
+}
+.direction-rtl{
+	direction: rtl;
+}
+.has-link{
+	color: #007bff;
+	cursor: pointer;
+	
+	&:hover{
+		text-decoration: underline;
+	}
+}
+.loader{
+	background: url('../images/cube-loader-white.gif') no-repeat center center;
+	background-size: contain;
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	filter: brightness(1.5);
+}
+
+/*-----------------------------
+
+						bootstrap
+
+-------------------------------*/
+.breadcrumb {
+  background: transparent;
+  margin: 0;
+}
+.card {
+	border-radius: 15px;
+	border: none;
+}
+.modal-lg {
+  max-width: 600px;
+}
+.btn-primary, .btn-default {
+    border-radius: 50px;
+    padding: 8px 30px;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  color: #fff;
+  background-color: transparent;
+}
+
+/*-----------------------------
+
+				landing page
+
+-------------------------------*/
+
+#console-log{
+	position: fixed;
+  bottom: 0;
+  z-index: 100;
+  background: #fff;
+  color: #999;
+  left: 0;
+  right: 0;
+  padding: 5px;
+  max-height: 100px;
+  overflow-y: scroll;
+  border-top: 1px solid #ccc;
+}
+
+/*-----------------------------
+
+				landing page
+
+-------------------------------*/
+.landing-page {
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  background: white;
+  height: 100%;
+  width: 100%;
+  .navbar-brand {
+		font-family: 'Josefin Slab', serif;
+		font-size: 30px;
+		img {
+			width: 60px;
+		}
+	}
+	.mid-section {
+		background: aliceblue;
+	}
+}
+/*-----------------------------
+
+						sidebar
+
+-------------------------------*/
+.left-col {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+  z-index: 10;
+	#app-navbar {
+		width: 0px;
+		transition: .5s all;
+		.closebtn {
+	    position: absolute;
+	    font-size: 30px;
+	    top: 0px;
+	    right: 15px;
+	    color: rgba(255, 255, 255, 0.5);
+	    transition: .3s all;
+	    text-decoration: none;
+	    &:hover {
+	    	color: white;
+	    }
+		}
+		.navbar-brand {
+			font-family: 'Josefin Slab', serif;
+			font-size: 30px;
+			opacity: 1;
+			img {
+				width: 40px;
+				margin-top: -15px;
+			}
+		}
+		.navbar-nav {
+			.nav-item {
+				.nav-link {
+					font-size: 20px;
+					color: white;
+					opacity: .6;
+					padding: 15px 0px;
+					img {
+						width: 30px;
+					}
+					&:hover {
+						color: white;
+						opacity: 1;
+					}
+				}
+			}
+		}
+	}
+}
+
+.right-col{
+	.main-content {
+    // margin-top: 50px;
+    // padding: 15px 0px;
+    .card-body {
+    	.action-btn {
+    		.btn-primary {
+			    border-radius: 50px;
+			    padding: 11px 50px;
+			    margin-left: 15px;
+				}
+    	}
+    }
+	}
+}
+
+/*-----------------------------
+
+					Header
+
+-------------------------------*/
+.header-top {
+  background: #f9f9f9;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9;
+  border-bottom: 1px solid #ececec;
+  .left-header {
+  	.menu-bar {
+  		/*display: none;*/
+  	}
+  }
+  .right-header {
+		.nav-link {
+			color: #6d6d6d;
+			display: flex;
+			align-items: center;
+			.lnr {
+				margin-right: 5px;
+   		}
+  	}
+  	.dropdown {
+  		.dropdown-menu {
+  			margin-top: 35px;
+  			li {
+  				padding: 5px 10px;
+  				transition: .2s all;
+  				a {
+  					color: #717171;
+  					text-decoration: none;
+  				}
+  				&:hover {
+  					background: #f5f5f5;
+  				}
+  			}
+  		}
+  	}
+  }
+}
+
+
+/*-----------------------------
+
+			popup money send
+
+-------------------------------*/
+
+.money-send, .money-receive {
+	.modal-dialog {
+		.modal-content {
+			.modal-body {
+				input, select {
+			    border: none;
+			    outline: 0;
+			    box-shadow: none;
+			    &::placeholder {
+			    	font-weight: 200;
+			    }
+				}
+			}
+			.modal-footer {
+				.choose-btn {
+					input[type="file"] {
+				    opacity: 0;
+				    width: 100%;
+				    position: absolute;
+				    left: 0;
+				    height: 100%;
+				    top: 0;
+				    cursor: pointer;
+					}
+				}
+			}
+		}
+	}
+}
+
+/*-----------------------------
+
+			popup SETTINGS
+
+-------------------------------*/
+.settings {
+	.modal-dialog {
+		.modal-content{
+			.modal-body {
+				.card {
+				 	border: 1px solid rgba(0,0,0,.125);
+  				border-radius: .25rem;
+  				.card-body {
+  					.btn-primary, .btn-default {
+  						padding: .25rem 1.5rem;
+  					}
+  				}
+  				.card-header {
+  					.switch {
+						  position: relative;
+						  display: inline-block;
+						  width: 50px;
+						  height: 25px;
+						  input {
+						  	display:none;
+						  }
+						  .slider {
+							  position: absolute;
+							  cursor: pointer;
+							  top: 0;
+							  left: 0;
+							  right: 0;
+							  bottom: 0;
+							  background-color: #ccc;
+							  -webkit-transition: .4s;
+							  transition: .4s;
+							  &:before {
+						    	position: absolute;
+							    content: "";
+							    height: 17px;
+							    width: 17px;
+							    left: 4px;
+							    bottom: 4px;
+							    background-color: white;
+							    -webkit-transition: .4s;
+							    transition: .4s;
+								}
+							}
+						}
+
+						input:checked + .slider {
+						  background-color: #2196F3;
+						}
+
+						input:focus + .slider {
+						  box-shadow: 0 0 1px #2196F3;
+						}
+
+						input:checked + .slider:before {
+						  -webkit-transform: translateX(26px);
+						  -ms-transform: translateX(26px);
+						  transform: translateX(26px);
+						}
+
+						.slider.round {
+						  border-radius: 34px;
+						}
+
+						.slider.round:before {
+						  border-radius: 50%;
+						}
+  				}
+				}
+			}
+		}
+	}
+}
+
+/*-----------------------------
+
+					Animation
+
+-------------------------------*/
+
+/*----------------------------------------
+ 			Ng-enter and Ng-leave Animations
+------------------------------------------*/
+
+.zoom-in-enter.ng-enter{
+	animation: 500ms zoom-in;
+}
+.zoom-in-enter.ng-leave{
+	display: none;
+	// animation: 500ms zoom-out;
+}
+
+.fade-in-enter.ng-enter{
+	animation: 500ms fade-in;
+}
+.fade-in-enter.ng-leave{
+	// display: none;
+	position:absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+	animation: 200ms fade-out;
+}
+
+/*----------------------------------------
+ 				animation scale-in-ver-top
+------------------------------------------*/
+
+.scale-in-ver-top {
+	-webkit-animation: scale-in-ver-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	animation: scale-in-ver-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@-webkit-keyframes scale-in-ver-top {
+  0% {
+    -webkit-transform: scaleY(0);
+            transform: scaleY(0);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+    opacity: 1;
+  }
+}
+@keyframes scale-in-ver-top {
+  0% {
+    -webkit-transform: scaleY(0);
+            transform: scaleY(0);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+    opacity: 1;
+  }
+}
+
+/*----------------------------------------
+ 				animation zoom-in
+------------------------------------------*/
+
+@keyframes zoom-in {
+	from {
+		transform : scale(0.99);
+		opacity:0;
+	}
+	to {
+		transform : scale(1);
+		opacity:1;
+	}
+}
+
+@keyframes zoom-out {
+	from {
+		transform : scale(1);
+		opacity:1;
+	}
+	to {
+		transform : scale(0.9);
+		opacity:0;
+	}
+}
+
+/*----------------------------------------
+ 				animation fade-in
+------------------------------------------*/
+
+@keyframes fade-in {
+	from {
+		opacity:0;
+		margin-left: -50px;
+	}
+	to {
+		opacity:1;
+		margin-left: 0;
+	}
+}
+
+@keyframes fade-out {
+	from {
+		opacity:1;
+		left: 0;
+	}
+	to {
+		opacity:0;
+		left: -50px;
+	}
+}
+
+/*-----------------------------
+
+					media query
+
+-------------------------------*/
+
+@media screen and (max-width: 1200px) {
+	/*.left-col {
+		#app-navbar {
+			.closebtn {
+				display: block;
+			}
+		}
+	}*/
+	/*.right-col,	.right-col .header-top {
+    margin-left: 0px;
+    width: 100%;
+    .left-header {
+    	.menu-bar {
+    		display: block;
+    	}
+    }
+	}
+*/}

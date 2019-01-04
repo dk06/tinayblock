@@ -1,0 +1,56 @@
+<!-- popup for send money -->
+<div class="modal fade money-send" id="send-coin">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+		<div class="modal-content pt-4 pb-2">
+			<div class="modal-body zoom-in-enter" ng-if='!transaction.success'>
+				<h4 class="mb-4 border-bottom">SEND {{coin.name | uppercase}}</h4>
+
+				<div class="alert alert-danger zoom-in-enter" ng-if='error.messages'>
+					{{error.messages}}
+				</div>
+
+				<div class="amount d-flex align-items-center justify-content-between border-bottom p-2" ng-repeat='form_field in coin.form_fields.send'>
+					<h6 class='m-0 text-nowrap'>{{form_field.name}}</h6>
+					<h6 class="d-flex align-items-center m-0 text-nowrap">
+						<input class="form-control pr-1" type="text" name="{{form_field.name}}" placeholder="{{form_field.name}} {{form_field.unit}}" ng-init='txParams[form_field.key]=form_field.default' ng-model='txParams[form_field.key]' ng-disabled='coin.form_fields.disabled'>
+						 <!-- <span ng-if='form_field.unit'> | {{form_field.unit}}</span> -->
+					</h6>
+				</div>
+				<div class="d-flex justify-content-center">
+					<div class='loader' ng-if='coin.loading'></div>
+				</div>
+				<!-- <hr>
+				<div class="debit-account d-flex align-items-center justify-content-between">
+					<h6>ACCOUNT TO DEBIT</h6>
+					<h6>
+					<select class="form-control">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+					</select></h6>
+				</div>
+				-->
+			</div>
+			<div class="modal-body zoom-in-enter py-5" ng-if='transaction.success'>
+				<h2 class='text-center fw-200'>
+					<span class='text-success'>Transaction Successful!</span>
+				</h2>
+				<div class='text-center text-truncate'>
+					<a href='' ng-click='openLink(transaction.data.txLink)'>{{ transaction.data.transactionHash }}</a>
+				</div>
+			</div>
+			<div class="modal-footer text-center">
+				<!-- <button type="button" class="btn btn-default choose-btn position-relative mb-4 mb-sm-0" ><span class="lnr lnr-camera"></span><input type="file" name="pic" accept="image/*"></button> -->
+				<div class="rgt-btn"  ng-if='!transaction.success'>
+					<button type="button" class="btn btn-default mr-3" data-dismiss="modal">CANCEL</button>
+					<button type="button" class="btn btn-primary" ng-click='sendTokens()'>SEND</button>
+				</div>
+				<div class="text-center"  ng-if='transaction.success'>
+					<button type="button" class="btn btn-default mr-3" ng-click='clearTransaction()'>OKAY</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end popup for send money -->

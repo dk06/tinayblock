@@ -1,0 +1,17 @@
+<div class="mid-section py-5 my-5">
+	<div ng-if='!currentStep.walletGenerated'>
+		<h4 class="fw-200">Recovery</h5>
+
+		<p class="fw-200 px-3 m-0">Enter the words that you got when you generated your wallet</p>
+		
+		<div class="col-sm-10 offset-sm-1 my-3">
+			<input class="form-control text-center" type="text" ng-model='currentStep.mnemonic'>
+		</div>
+	</div>
+
+	<h5 class='fw-200 text-{{currentStep.message.type}}'>{{currentStep.message.text}}</h5>
+	<div class='loader' ng-show='currentStep.showLoading'></div>
+</div>
+<button type="button" class="btn btn-sm btn-default" ng-click='goBack("import")' ng-if='!currentStep.walletGenerated'>Go Back</button>
+<button type="button" class="btn btn-sm btn-primary" ng-click='recoverWallet()' ng-if='!currentStep.walletGenerated'>Recover</button>
+<button type="button" class="btn btn-sm btn-primary" ng-if='currentStep.walletGenerated'><a href='#!index' style='text-decoration: none;color:white;'>Continue</a></button>

@@ -1,0 +1,31 @@
+<h4 class="font-weight-light">Transactions</h4>
+<div class="card card-body">
+  <!-- <div class="table-responsive"> -->
+    <!-- <table class="table table-hover"> -->
+      <div class='row py-2 border-bottom' ng-repeat='tx_row in coin.txs track by $index' ng-init='$rowIndex = $index;'>
+        <div class='col text-truncate' ng-repeat='tx_col in tx_row'>
+          <div ng-include="'./templates/shared/transaction_col_data.html'" ng-init='data = tx_col'></div>
+        </div>
+      </div>
+      <!-- <thead class="thead-light">
+        <tr>
+          <th>Date and Time</th>
+          <th>Transfer</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat='tx in coin.txs | orderBy: timeStamp'>
+          <td>{{tx.timeStamp | date: 'yyyy/MM/dd h:mm:ss a'}}</td>
+          <td>
+            <span class="text-secondary">{{tx.from}}</span>
+             -> 
+            <span class="">{{tx.to}}</span>
+          </td>
+          <td>{{humanizeToken(tx.value)}} {{ coin.symbol }}</td>
+        </tr>
+      </tbody> -->
+    <!-- </table> -->
+  <!-- </div> -->
+  <h4 class='text-center text-muted font-weight-light' ng-if='!coin.txs.length'> No Transactions Found </h4>
+</div>

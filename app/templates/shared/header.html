@@ -1,0 +1,23 @@
+<div class="header-top container-fluid py-1">
+	<div class="d-flex align-items-center justify-content-between">
+		<div class="left-header d-flex align-items-center">
+			<!-- <a class="nav-link menu-bar m-0 mr-4"><span class="lnr lnr-menu" onclick="openNav()"></span></a> -->
+			<a href="{{backlink}}" class="nav-link menu-bar m-0 mr-4 text-secondary"><span class="lnr lnr-chevron-left"></span> Back</a>
+		</div>
+		<div class="center-header d-flex align-items-center">
+			<span class='h4 m-0'>{{title}}</span>
+		</div>
+		<div class="right-header d-flex align-items-center">
+			<div class="dropdown">
+				<a class="nav-link dropdown-toggle" data-toggle="dropdown"><span class="lnr lnr-user"></span><!-- <p class="m-0 d-xl-block d-none">Profile</p> --></a>
+				<ul class="dropdown-menu scale-in-ver-top" style="top:35px;">
+		      <li><a href="#">Switch Account</a></li>
+		      <li><a href="#">Create Account</a></li>
+		      <li><a href="#">Import Account</a></li>
+		    </ul>
+			</div>
+			<!-- <a class="nav-link" href="#"><span class="lnr lnr-list"></span><p class="m-0 d-xl-block d-none">All Operations</p></a> -->
+			<a class="nav-link" data-toggle="modal" data-target="#settings"><span class="lnr lnr-cog"></span><!-- <p class="m-0 d-xl-block d-none">Account Settings</p> --></a>
+		</div>
+	</div>
+</div>

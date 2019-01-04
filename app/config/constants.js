@@ -1,0 +1,6 @@
+var CONSTANTS = {
+	DEV: {
+	},
+	PROD: {
+	}
+}

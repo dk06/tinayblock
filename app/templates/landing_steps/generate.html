@@ -1,0 +1,10 @@
+<div class="mid-section py-5 my-5">
+	<h4 class="fw-200">Magic Wordlist</h5>
+	<h5 class="mb-3">"{{currentStep.mnemonic}}"</h5>
+	<p class="fw-200 px-3 m-0">Note down the above words and keep them somewhere safe, preferably on a piece of paper.</p>
+	<p class="fw-200 px-3">These words can be used to recover your wallet and all its accounts.</p>
+
+	<h5 class='fw-200 text-{{currentStep.message.type}}'>{{currentStep.message.text}}</h5>
+	<div class='loader' ng-show='currentStep.showLoading'></div>
+</div>
+<button type="button" class="btn btn-sm btn-primary"><a href='#!index' style='text-decoration: none;color:white;'>Continue</a></button>

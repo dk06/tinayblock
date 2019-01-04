@@ -1,0 +1,9 @@
+<div class='landing-page'>
+	<div class="d-flex align-items-center justify-content-center h-100">
+		<div class="text-center w-100">
+			<div class="navbar-brand"><img class="mr-2" src="images/wallet.svg" /> Tinyblock Wallet</div>
+			<!-- {{currentStep}} -->
+			<div class='zoom-in-enter' ng-include="'./templates/landing_steps/'+step.key+'.html'" ng-if='currentStep.key == step.key' ng-repeat='(key, step) in steps'>
+		</div>
+	</div>
+</div>

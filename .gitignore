@@ -3,3 +3,4 @@ app/node_modules
 .vscode-root
 dist
 .sass-cache
+.vscode/

@@ -56,12 +56,12 @@
     "web3": "^1.0.0-beta.34"
   },
   "build": {
-    "appId": "hr.creaticon.eatodo",
+    "appId": "com.tinyblock",
     "publish": [
       "github"
     ],
     "mac": {
-      "category": "hr.creaticon.eatodo",
+      "category": "com.tinyblock",
       "target": "dmg"
     },
     "linux": {

@@ -1,15 +1,15 @@
 {
-  "name": "electron-quick-start",
+  "name": "Tinyblock",
   "version": "1.0.5",
   "description": "A minimal Electron application",
   "main": "./app/main.js",
   "scripts": {
     "postinstall": "install-app-deps && electron-rebuild --force",
-    "start": "electron ./app --enable-logging",
+    "start": "electron .",
     "dev": "NODE_ENV='development' npm run start",
     "dist": "build -m",
     "rebuild": "electron-rebuild --force",
-    "publish": "build --mac -p always",
+    "publish": "build mac -p always",
     "package-mac": "electron-packager .",
     "package-win": "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"CryptoApp\"",
     "package-linux": "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds"
@@ -25,9 +25,8 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^2.0.2",
-    "electron-builder": "^5.12.1",
-    "electron-prebuilt": "~1.2.X",
+    "electron": "^3.0.2",
+    "electron-builder": "^20.28.4",
     "electron-rebuild": "^1.8.1"
   },
   "dependencies": {
@@ -61,12 +60,15 @@
       "github"
     ],
     "mac": {
-      "category": "com.tinyblock",
-      "target": "dmg"
+      "category": "your.app.category.type",
+      "target": [
+        "zip",
+        "dmg"
+      ]
     },
     "linux": {
       "target": "deb",
       "category": "Development"
     }
   }
-}
+ }

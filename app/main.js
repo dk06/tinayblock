@@ -25,7 +25,8 @@ function sendStatusToWindow(text) {
   win.webContents.send('message', text);
 }
 function createDefaultWindow() {
-  win = new BrowserWindow();
+  // win = new BrowserWindow();
+  win = new BrowserWindow({width: 1700, height: 800, show: true})//titleBarStyle: 'hidden',
   win.webContents.openDevTools();
   win.on('closed', () => {
     win = null;

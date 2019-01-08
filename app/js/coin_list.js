@@ -33,25 +33,25 @@ var Coins = {
 					{ key: 'gasLimit', name: 'Gas Limit', default: '21000', unit: '' }
 				]
 			}
-		}
+		},
 
-		// BCH: {
-		// 	name: 'Bitcoin Cash', 
-		// 	symbol: 'BCH', 
-		// 	bip_44_code: '145',
-		// 	library: 'W3BitcoinCash',
-		// 	has_own_generate_root: true,
-		// 	wallet: {	"privateKey":"cRr2FLe1sCvKt9cmmx6ZfEFsjKStQLmKHLMHLaz4VHeJGPJXeHAM",
-		// 						"publicKey":"bchtest:qr3l7nzxxthrvzucgm2l66ld9xt42a8apullqlwjhy", 
-		// 						"legacyAddress": "n2JVX1dx1A933zzwFNWhgjqGYnXympvqh7"},
-		// 	form_fields: {
-		// 		send: [
-		// 			{ key: 'to', name: 'Recipient Address', default: '', unit: ''},
-		// 			{ key: 'value', name: 'Amount', default: '', unit: 'BCH' },
-		// 			{ key: 'fee', name: 'Transaction Fee', default: '0.001', unit: '' }
-		// 		]
-		// 	}
-		// },
+		BCH: {
+			name: 'Bitcoin Cash', 
+			symbol: 'BCH', 
+			bip_44_code: '145',
+			library: 'W3BitcoinCash',
+			has_own_generate_root: true,
+			wallet: {	"privateKey":"cRr2FLe1sCvKt9cmmx6ZfEFsjKStQLmKHLMHLaz4VHeJGPJXeHAM",
+								"publicKey":"bchtest:qr3l7nzxxthrvzucgm2l66ld9xt42a8apullqlwjhy", 
+								"legacyAddress": "n2JVX1dx1A933zzwFNWhgjqGYnXympvqh7"},
+			form_fields: {
+				send: [
+					{ key: 'to', name: 'Recipient Address', default: '', unit: ''},
+					{ key: 'value', name: 'Amount', default: '', unit: 'BCH' },
+					{ key: 'fee', name: 'Transaction Fee', default: '0.001', unit: '' }
+				]
+			}
+		},
 
 		// IOTA: {
 		// 	name: 'IOTA',

@@ -2,6 +2,7 @@ const {app, BrowserWindow, Menu, protocol, ipcMain} = require('electron');
 // const {autoUpdater, dialog } = require('electron');
 const {autoUpdater} = require("electron-updater");
 const log = require('electron-log');
+const isDev = require('electron-is-dev');
 // Module to control application life.
 // Module to create native browser window.
 // const BrowserWindow = electron.BrowserWindow
@@ -79,7 +80,12 @@ app.on('window-all-closed', () => {
 // app quits.
 //-------------------------------------------------------------------
 app.on('ready', function()  {
-  autoUpdater.checkForUpdatesAndNotify();
+  if (isDev) {
+    console.log('Running in development');
+  } else {
+      console.log('Running in production');
+      autoUpdater.checkForUpdatesAndNotify();
+  }
 });
 
 

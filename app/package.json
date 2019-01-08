@@ -5,8 +5,8 @@
   "author": "A<a@a.com>",
   "main": "./main.js",
   "devDependencies": {
-    "electron": "^2.0.2",
-    "electron-builder": "^5.12.1",
+    "electron": "^3.0.2",
+    "electron-builder": "^20.28.4",
     "electron-rebuild": "^1.8.1"
   },
   "dependencies": {

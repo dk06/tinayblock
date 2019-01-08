@@ -9,7 +9,7 @@
     "dev": "NODE_ENV='development' npm run start",
     "dist": "build -m",
     "rebuild": "electron-rebuild --force",
-    "publish": "build -p always",
+    "publish": "build mac -p always",
     "package-mac": "electron-packager .",
     "package-win": "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"CryptoApp\"",
     "package-linux": "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds"
@@ -27,7 +27,6 @@
   "devDependencies": {
     "electron": "^2.0.2",
     "electron-builder": "^20.28.4",
-    "electron-prebuilt": "~1.2.X",
     "electron-rebuild": "^1.8.1"
   },
   "dependencies": {
@@ -56,7 +55,7 @@
     "web3": "^1.0.0-beta.34"
   },
   "build": {
-    "appId": "com.github.iffy.electronupdaterexample",
+    "appId": "com.tinyblock",
     "publish": [
       "github"
     ],

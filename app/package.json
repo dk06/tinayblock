@@ -7,7 +7,6 @@
   "devDependencies": {
     "electron": "^2.0.2",
     "electron-builder": "^5.12.1",
-    "electron-prebuilt": "~1.2.X",
     "electron-rebuild": "^1.8.1"
   },
   "dependencies": {

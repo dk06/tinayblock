@@ -1,6 +1,6 @@
 {
   "name": "Tinyblock",
-  "version": "1.0.5",
+  "version": "0.0.1",
   "description": "A minimal Electron application",
   "main": "./app/main.js",
   "scripts": {
@@ -46,6 +46,7 @@
     "ethereumjs-util": "^5.2.0",
     "iota.lib.js": "^0.5.1",
     "litecore-lib": "^0.13.22",
+    "node-abi": "^2.5.1",
     "node-hid": "^0.7.3",
     "nvm": "0.0.4",
     "payment": "^2.3.0",
@@ -71,4 +72,4 @@
       "category": "Development"
     }
   }
- }
+}

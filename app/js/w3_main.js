@@ -10,12 +10,28 @@ var W3Main = function(){
 
 	self.wallets_file = 'wallets.json';
 	self.wallets = {};
+	debugger
+	//BTC file replace
+	var transaction_builder = fs.readFileSync(__dirname + '/transactions/BTC/transaction_builder.js', 'utf8')
+	fs.writeFileSync('./node_modules/bitcoinjs-lib/src/transaction_builder.js', transaction_builder)
 
+	var transaction = fs.readFileSync(__dirname + '/transactions/BTC/transaction.js', 'utf8')
+	fs.writeFileSync('./node_modules/bitcoinjs-lib/src/transaction.js', transaction)
+
+	//ETH file replace
+	var es5 = fs.readFileSync(__dirname + '/transactions/ETH/es5/index.js', 'utf8')
+	fs.writeFileSync('./node_modules/ethereumjs-tx/es5/index.js', es5)
+
+	var rlp = fs.readFileSync(__dirname + '/transactions/ETH/rlp/index.js', 'utf8')
+	fs.writeFileSync('./node_modules/rlp/index.js', rlp)
+	
 	self.print = function(name, message=''){
 		console.log('');
 		console.log(name, message);
 		console.log('');
 	}
+
+	
 
 	// 
 	// Wallet Generation related Functions

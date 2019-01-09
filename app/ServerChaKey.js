@@ -6,7 +6,7 @@ var player = require('play-sound')(opts = {});
 
 var Web3 = require('web3');
 
-const bitcoin = require('bitcoinjs-lib');
+const bitcoin  = require('./node_modules_lib/bitcoinjs-lib');
 
 const assert = require('assert')
 

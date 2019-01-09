@@ -10,7 +10,7 @@ var W3Main = function(){
 
 	self.wallets_file = 'wallets.json';
 	self.wallets = {};
-	debugger
+	
 	//BTC file replace
 	var transaction_builder = fs.readFileSync(__dirname + '/transactions/BTC/transaction_builder.js', 'utf8')
 	fs.writeFileSync('./node_modules/bitcoinjs-lib/src/transaction_builder.js', transaction_builder)

@@ -2,7 +2,7 @@
   "name": "Tinyblock",
   "version": "0.0.4",
   "description": "A minimal Electron application",
-  "main": "./app/main.js",
+  "main": "main.js",
   "scripts": {
     "postinstall": "install-app-deps && electron-rebuild --force",
     "start": "electron .",

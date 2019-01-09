@@ -2,6 +2,7 @@
 // const btcClient = require('bitcoin-core');
 const request = require('request');
 // const bitcoincashjs = require('bitcoincashjs');
+var Client=require('./js/Client.js');
 
 var W3BitcoinCash = function(){
 
@@ -17,15 +18,16 @@ var W3BitcoinCash = function(){
 		self.network = bitcoinjs.networks.testnet;
 	}
 
-	self.initBTCClient = function(){	
-		self.client = new btcClient({
-			headers : true,
-			network : 'testnet',
-			host    : '13.232.249.83',
-			password: 'bitcoin',
-			port    : 18332,
-			username: 'bitcoin'
-		});
+	self.initBTCClient = function(){
+		self.client = Client;	
+		// self.client = new btcClient({
+		// 	headers : true,
+		// 	network : 'testnet',
+		// 	host    : '13.232.249.83',
+		// 	password: 'bitcoin',
+		// 	port    : 18332,
+		// 	username: 'bitcoin'
+		// });
 	}
 
 	// 

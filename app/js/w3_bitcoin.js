@@ -1,7 +1,6 @@
 // const W3Main = require("./w3_main.js");
 const prompt = require('electron-prompt');
 const bitcoinjs = require('bitcoinjs-lib');
-const btcClient = require('bitcoin-core');
 // var MININGFEE = 67800;
 var IChaKey=require('./js/IChaKey.js');
 var player = require('play-sound')(opts = {});
@@ -12,30 +11,33 @@ var HID = require('node-hid');
 const wif = require('wif');
 var transactionData ;
 
+var Client=require('./js/Client.js');
+
 var W3Bitcoin = function(){
-
+	
 	var self = this;
-
+	
 	self.init = function(){
 		self.initBTCClient();
 		self.initNetwork();
 	}
-
+	
 	self.initNetwork = function(){
 		// self.network = bitcoinjs.networks.bitcoin;
 		self.network = bitcoinjs.networks.testnet;
 	}
-
-	self.initBTCClient = function(){	
-		self.client = new btcClient({
-			headers: true,
-			network: 'testnet',
-			// host: '18.223.156.234',
-			host: '34.220.71.164',
-			username: 'bitcoin_testnet',
-			port: 18332,
-			password: 'w3villa!'
-		});
+	
+	self.initBTCClient = function(){
+		self.client= Client;
+		// self.client = new btcClient({
+		// 	headers: true,
+		// 	network: 'testnet',
+		// 	// host: '18.223.156.234',
+		// 	host: '34.220.71.164',
+		// 	username: 'bitcoin_testnet',
+		// 	port: 18332,
+		// 	password: 'w3villa!'
+		// });
 	}
 
 	// 

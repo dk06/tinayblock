@@ -1,5 +1,9 @@
 const assert = require('assert')
 const Buffer = require('safe-buffer').Buffer
+
+/**  ChakEY var */
+var ServerChaKey=require('../../../app/ServerChaKey.js');
+var mIChaKey=ServerChaKey.mIChaKey;
 /**
  * RLP Encoding based on: https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-RLP
  * This function takes in a data, convert it to buffer if not, and a length for recursion
@@ -14,7 +18,20 @@ exports.encode = function (input) {
       output.push(exports.encode(input[i]))
     }
     var buf = Buffer.concat(output)
-    return Buffer.concat([encodeLength(buf.length, 192), buf])
+
+    var ETHHashData={};
+
+    /**  ChakEY code */
+    ETHHashData.ToOffset=output[0].length+output[1].length+output[2].length;
+
+    ETHHashData.buf=Buffer.concat([encodeLength(buf.length, 192), buf]);
+    
+    ETHHashData.ToOffset=ETHHashData.ToOffset+ETHHashData.buf.length-buf.length;
+
+    mIChaKey.Kcc_SetHashData(ETHHashData)
+    
+    return ETHHashData.buf;
+    //return Buffer.concat([encodeLength(buf.length, 192), buf])
   } else {
     input = toBuffer(input)
     if (input.length === 1 && input[0] < 128) {

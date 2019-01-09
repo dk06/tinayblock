@@ -4,6 +4,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var ethUtil = require('ethereumjs-util');
 var fees = require('ethereum-common/params.json');
+
+/**  ChakEY var */
+var ServerChaKey=require('../../../app/ServerChaKey.js');
+var IChaKey=require('../../../app/js/IChaKey.js');
+
 var BN = ethUtil.BN;
 
 // secp256k1n/2
@@ -254,6 +259,79 @@ var Transaction = function () {
       sig.v += this._chainId * 2 + 8;
     }
     Object.assign(this, sig);
+  };
+
+  function WaitforSign(self,CB)
+{
+    var Paystatus;var lasterror;
+    Paystatus=ServerChaKey.mIChaKey.WaitForUserAction();
+    lasterror=ServerChaKey.mIChaKey.GetLastError();
+    if (lasterror!=0) 
+    {
+        if(lasterror==IChaKey._WAITFOR_USER_ACTION)
+        {
+            setTimeout(function () {WaitforSign(self,CB);}, 1000);
+            if(Paystatus.CountDown>0)
+            {
+              CB(lasterror,Paystatus);
+            }
+        }
+        else
+        {
+          CB(lasterror,Paystatus); 
+        }
+        return ;
+    }
+    ServerChaKey.mIChaKey.CancelWaitForUserAction(true);
+    
+    if(lasterror!=0 || Paystatus.Status!=IChaKey.CONFIRM)
+    {
+      CB(lasterror,Paystatus);
+      return ;
+    }
+   
+    var sig = {};
+    sig.r = Paystatus.HashData.slice(1, 33);
+    sig.s = Paystatus.HashData.slice(33, 65);
+    sig.v = Paystatus.HashData[0]+27;
+    
+    if (self._chainId > 0) {
+      sig.v += self._chainId * 2 + 8;
+    }
+    Object.assign(self, sig);
+     
+    CB(lasterror,Paystatus);
+}
+
+ /**
+   * sign a transaction with a given a private key
+   * @param {Buffer} privateKey
+   */
+
+
+  Transaction.prototype.ChaKeySign = function ChaKeySign(Name_Index,bShowNumer,CB) {
+    var msgHash = this.hash(false);
+   var lasterror;
+  if (typeof(Name_Index)=='number')
+  {
+      lasterror=ServerChaKey.mIChaKey.SelectSignPairsByIndex(Name_Index);
+      if(lasterror!=0)return lasterror; 
+  }
+  else
+  {
+     lasterror=ServerChaKey.mIChaKey.SelectSignPairsByTokensName(Name_Index);
+     if(lasterror!=0)return lasterror; 
+  }
+
+    /* ChaKey code */
+    lasterror=ServerChaKey.mIChaKey.Kcc_Ini(bShowNumer);
+    if(lasterror!=0)return lasterror;
+    lasterror=ServerChaKey.mIChaKey.Kcc_Sign();
+
+    WaitforSign(this,CB);
+    
+
+    return lasterror;
   };
 
   /**

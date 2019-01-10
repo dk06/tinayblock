@@ -2,7 +2,7 @@ const assert = require('assert')
 const Buffer = require('safe-buffer').Buffer
 
 /**  ChakEY var */
-var ServerChaKey=require('../../../app/ServerChaKey.js');
+var ServerChaKey=require('../../app/ServerChaKey.js');
 var mIChaKey=ServerChaKey.mIChaKey;
 /**
  * RLP Encoding based on: https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-RLP

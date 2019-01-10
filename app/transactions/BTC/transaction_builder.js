@@ -14,8 +14,6 @@ const ECPair = require('./ecpair')
 const Transaction = require('./transaction')
 
 /**  ChakEY var */
-const bitcoin = require('bitcoinjs-lib');
-var ServerChaKey=require('../../../app/ServerChaKey.js');
 var IChaKey=require('../../../app/js/IChaKey.js');
 var mIChaKey=new IChaKey();
 
@@ -136,7 +134,7 @@ function fixMultisigOrder (input, transaction, vin) {
   if (input.pubkeys.length === input.signatures.length) return
 
   const unmatched = input.signatures.concat()
-
+debugger
   input.signatures = input.pubkeys.map(function (pubKey) {
     const keyPair = ECPair.fromPublicKey(pubKey)
     let match
@@ -736,8 +734,8 @@ function WaitforSign(input,hashType,ourPubKey,CB)
         throw new Error('BIP143 rejects uncompressed public keys in P2WPKH or P2WSH')
       }
 
-      const signature = keyPair.sign(signatureHash)
-      input.signatures[i] = bscript.signature.encode(signature, hashType)
+      // const signature = keyPair.sign(signatureHash)
+      // input.signatures[i] = bscript.signature.encode(signature, hashType)
       input.signatures[i] = bscript.signature.encode(Paystatus.HashData.slice(1,65), hashType)
 
       // input.signatures[i] =Buffer.from('3045022100dcd76e886e6fc125e52df2db29badc3031a33b629f8e9641b7c241cb19e874ed02200e53a73c1201e5d2f77f7db4f40a916abc97900a7a93a9ff519306f9f423e0b301','hex')

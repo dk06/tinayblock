@@ -233,7 +233,6 @@ var W3Bitcoin = function(){
 				alert('Wrong device pin');
 				resolve(self.response(false, 'device not active and Wrong device pin'));
 			}else{
-				debugger
 				var txn = new bitcoinjs.TransactionBuilder(bitcoinjs.networks.testnet);
 				mIChaKey.AddKeyPairs('BTC',account,IChaKey.BTC_SIGNTYPE);
 				txn.setVersion(1);

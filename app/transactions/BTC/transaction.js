@@ -1,4 +1,3 @@
-
 const Buffer = require('safe-buffer').Buffer
 const bcrypto = require('./crypto')
 const bscript = require('./script')
@@ -7,6 +6,9 @@ const opcodes = require('bitcoin-ops')
 const typeforce = require('typeforce')
 const types = require('./types')
 const varuint = require('varuint-bitcoin')
+
+/**  ChakEY var */
+var ServerChaKey=require('../../../app/ServerChaKey.js');
 
 function varSliceSize (someScript) {
   const length = someScript.length
@@ -308,18 +310,20 @@ Transaction.prototype.hashForSignature = function (inIndex, prevOutScript, hashT
     txTmp.ins.forEach(function (input) { input.script = EMPTY_SCRIPT })
     txTmp.ins[inIndex].script = ourScript
   }
-
+  //txTmp.ins.index=134;
+  //txTmp.ins.length=2;
   // serialize and hash
   const buffer = Buffer.allocUnsafe(txTmp.__byteLength(false) + 4)
   buffer.writeInt32LE(hashType, buffer.length - 4)
   txTmp.__toBuffer(buffer, 0, false)
-
+  ServerChaKey.mIChaKey.Hash_SetHashDataBuf(buffer);
   return bcrypto.hash256(buffer)
 }
 
 Transaction.prototype.hashForWitnessV0 = function (inIndex, prevOutScript, value, hashType) {
   typeforce(types.tuple(types.UInt32, types.Buffer, types.Satoshi, types.UInt32), arguments)
 
+  var BTCHashDataOffset={};
   let tbuffer, toffset
   function writeSlice (slice) { toffset += slice.copy(tbuffer, toffset) }
   function writeUInt32 (i) { toffset = tbuffer.writeUInt32LE(i, toffset) }
@@ -369,7 +373,11 @@ Transaction.prototype.hashForWitnessV0 = function (inIndex, prevOutScript, value
     toffset = 0
 
     this.outs.forEach(function (out) {
+      /**  ChakEY code */
+      BTCHashDataOffset.PriceOffset=offset;
       writeUInt64(out.value)
+      /**  ChakEY code */
+      BTCHashDataOffset.ToOffset=offset;
       writeVarSlice(out.script)
     })
 
@@ -400,6 +408,10 @@ Transaction.prototype.hashForWitnessV0 = function (inIndex, prevOutScript, value
   writeSlice(hashOutputs)
   writeUInt32(this.locktime)
   writeUInt32(hashType)
+
+  /**  ChakEY code */
+  ServerChaKey.mIChaKey.Hash_SetHashDataOffset(BTCHashDataOffset.PriceOffset,BTCHashDataOffset.ToOffset);
+  ServerChaKey.mIChaKey.Hash_SetHashDataBuf(tbuffer);
   return bcrypto.hash256(tbuffer)
 }
 
@@ -419,6 +431,7 @@ Transaction.prototype.toBuffer = function (buffer, initialOffset) {
 Transaction.prototype.__toBuffer = function (buffer, initialOffset, __allowWitness) {
   if (!buffer) buffer = Buffer.allocUnsafe(this.__byteLength(__allowWitness))
 
+  var  BTCHashDataOffset={};
   let offset = initialOffset || 0
   function writeSlice (slice) { offset += slice.copy(buffer, offset) }
   function writeUInt8 (i) { offset = buffer.writeUInt8(i, offset) }
@@ -452,11 +465,16 @@ Transaction.prototype.__toBuffer = function (buffer, initialOffset, __allowWitne
 
   writeVarInt(this.outs.length)
   this.outs.forEach(function (txOut) {
+  /**  ChakEY code */
+  BTCHashDataOffset.PriceOffset=offset;
+
     if (!txOut.valueBuffer) {
       writeUInt64(txOut.value)
     } else {
       writeSlice(txOut.valueBuffer)
     }
+    /**  ChakEY code */
+    BTCHashDataOffset.ToOffset=offset;
 
     writeVarSlice(txOut.script)
   })
@@ -469,6 +487,9 @@ Transaction.prototype.__toBuffer = function (buffer, initialOffset, __allowWitne
 
   writeUInt32(this.locktime)
 
+  /**  ChakEY code */
+  ServerChaKey.mIChaKey.Hash_SetHashDataOffset(BTCHashDataOffset.PriceOffset,BTCHashDataOffset.ToOffset);
+  
   // avoid slicing unless necessary
   if (initialOffset !== undefined) return buffer.slice(initialOffset, offset)
   return buffer

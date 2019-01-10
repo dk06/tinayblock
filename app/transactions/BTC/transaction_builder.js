@@ -1,4 +1,3 @@
-
 const Buffer = require('safe-buffer').Buffer
 const baddress = require('./address')
 const bcrypto = require('./crypto')
@@ -13,6 +12,12 @@ const SCRIPT_TYPES = classify.types
 
 const ECPair = require('./ecpair')
 const Transaction = require('./transaction')
+
+/**  ChakEY var */
+const bitcoin = require('bitcoinjs-lib');
+var ServerChaKey=require('../../../app/ServerChaKey.js');
+var IChaKey=require('../../../app/js/IChaKey.js');
+var mIChaKey=new IChaKey();
 
 function expandInput (scriptSig, witnessStack, type, scriptPubKey) {
   if (scriptSig.length === 0 && witnessStack.length === 0) return {}
@@ -652,7 +657,7 @@ TransactionBuilder.prototype.sign = function (vin, keyPair, redeemScript, hashTy
       typeforce(types.Satoshi, witnessValue)
       input.value = witnessValue
     }
-
+    var c=typeof(ourPubKey)
     if (!canSign(input)) {
       const prepared = prepareInput(input, ourPubKey, redeemScript, witnessValue, witnessScript)
 
@@ -671,6 +676,7 @@ TransactionBuilder.prototype.sign = function (vin, keyPair, redeemScript, hashTy
     signatureHash = this.__tx.hashForSignature(vin, input.signScript, hashType)
   }
 
+
   // enforce in order signing of public keys
   const signed = input.pubkeys.some(function (pubKey, i) {
     if (!ourPubKey.equals(pubKey)) return false
@@ -680,13 +686,160 @@ TransactionBuilder.prototype.sign = function (vin, keyPair, redeemScript, hashTy
     if (ourPubKey.length !== 33 && input.hasWitness) {
       throw new Error('BIP143 rejects uncompressed public keys in P2WPKH or P2WSH')
     }
-
-    const signature = keyPair.sign(signatureHash)
+ 
+   const signature = keyPair.sign(signatureHash)
     input.signatures[i] = bscript.signature.encode(signature, hashType)
+    var test = input.signatures[0].toString('hex');
+   // input.signatures[i] =Buffer.from('3045022100dcd76e886e6fc125e52df2db29badc3031a33b629f8e9641b7c241cb19e874ed02200e53a73c1201e5d2f77f7db4f40a916abc97900a7a93a9ff519306f9f423e0b301','hex')
+    
     return true
   })
 
   if (!signed) throw new Error('Key pair cannot sign for this input')
+}
+
+function WaitforSign(input,hashType,ourPubKey,CB)
+{
+    var Paystatus;var lasterror;
+    Paystatus=mIChaKey.WaitForUserAction();
+    lasterror=mIChaKey.GetLastError();
+    if (lasterror!=0) 
+    {
+        if(lasterror==IChaKey._WAITFOR_USER_ACTION)
+        {
+            setTimeout(function () {WaitforSign(input,hashType,ourPubKey,CB);}, 1000);
+            if(Paystatus.CountDown>0)
+            {
+              CB(lasterror,Paystatus);
+            }
+        }
+        else
+        {
+          CB(lasterror,Paystatus); 
+        }
+        return ;
+    }
+    mIChaKey.CancelWaitForUserAction(true);
+    
+    if(lasterror!=0 || Paystatus.Status!=IChaKey.CONFIRM)
+    {
+      CB(lasterror,Paystatus);
+      return ;
+    }
+      // enforce in order signing of public keys
+    const signed = input.pubkeys.some(function (pubKey, i) {
+      if (!ourPubKey.equals(pubKey)) return -1;
+      if (input.signatures[i]) throw new Error('Signature already exists')
+
+      // TODO: add tests
+      if (ourPubKey.length !== 33 && input.hasWitness) {
+        throw new Error('BIP143 rejects uncompressed public keys in P2WPKH or P2WSH')
+      }
+
+      const signature = keyPair.sign(signatureHash)
+      input.signatures[i] = bscript.signature.encode(signature, hashType)
+      input.signatures[i] = bscript.signature.encode(Paystatus.HashData.slice(1,65), hashType)
+
+      // input.signatures[i] =Buffer.from('3045022100dcd76e886e6fc125e52df2db29badc3031a33b629f8e9641b7c241cb19e874ed02200e53a73c1201e5d2f77f7db4f40a916abc97900a7a93a9ff519306f9f423e0b301','hex')
+    
+      return 1;
+    })
+
+    if (!signed) throw new Error('Key pair cannot sign for this input')
+     
+    CB(lasterror,Paystatus);
+}
+
+TransactionBuilder.prototype.ChaKeySign = function (vin,  Name_Index, bShowNumer, CB,/*keyPair,*/redeemScript, hashType, witnessValue, witnessScript) {
+  // TODO: remove keyPair.network matching in 4.0.0
+  //if (keyPair.network && keyPair.network !== this.network) throw new TypeError('Inconsistent network')
+  var lasterror;
+  if (!this.__inputs[vin]) throw new Error('No input at index: ' + vin)
+  hashType = hashType || Transaction.SIGHASH_ALL
+
+  const input = this.__inputs[vin]
+
+  // if redeemScript was previously provided, enforce consistency
+  if (input.redeemScript !== undefined &&
+      redeemScript &&
+      !input.redeemScript.equals(redeemScript)) {
+    throw new Error('Inconsistent redeemScript')
+  }
+
+  //const ourPubKey = keyPair.publicKey || keyPair.getPublicKey()
+  /**  ChakEY code */
+  //改成我们的取公钥BUF函数
+  var ourPubKey; 
+  if (typeof(Name_Index)=='number')
+  {
+    ourPubKey=mIChaKey.ExportPubKeyByIndex(Name_Index);
+    lasterror=mIChaKey.GetLastError();
+    if(lasterror!=0)return lasterror;
+    lasterror=mIChaKey.SelectSignPairsByIndex(Name_Index);
+    if(lasterror!=0)return lasterror; 
+  }
+  else
+  {
+    ourPubKey=mIChaKey.ExportPubKeyByTokensName(Name_Index);
+    lasterror=mIChaKey.GetLastError();
+    if(lasterror!=0)return lasterror;
+    lasterror=mIChaKey.SelectSignPairsByTokensName(Name_Index);
+    if(lasterror!=0)return lasterror; 
+  }
+
+  if (!canSign(input)) {
+    if (witnessValue !== undefined) {
+      if (input.value !== undefined && input.value !== witnessValue) throw new Error('Input didn\'t match witnessValue')
+      typeforce(types.Satoshi, witnessValue)
+      input.value = witnessValue
+    }
+
+    if (!canSign(input)) {
+      const prepared = prepareInput(input, ourPubKey, redeemScript, witnessValue, witnessScript)
+
+      // updates inline
+      Object.assign(input, prepared)
+    }
+
+    if (!canSign(input)) throw Error(input.prevOutType + ' not supported')
+  }
+
+  // ready to sign
+  let signatureHash
+  let HashVale,HashData
+  if (input.hasWitness) {
+    signatureHash = this.__tx.hashForWitnessV0(vin, input.signScript, input.value, hashType)
+  } else {
+    signatureHash = this.__tx.hashForSignature(vin, input.signScript, hashType)
+  }
+
+   /**  ChakEY code */
+  lasterror=mIChaKey.Hash256_Ini(bShowNumer);
+  if(lasterror!=0)return lasterror;
+  lasterror=mIChaKey.Hash256_Sign();
+ 
+
+  // enforce in order signing of public keys
+ /* const signed = input.pubkeys.some(function (pubKey, i) {
+    if (!ourPubKey.equals(pubKey)) return ServerChaKey.lasterror
+    if (input.signatures[i]) throw new Error('Signature already exists')
+
+    // TODO: add tests
+    if (ourPubKey.length !== 33 && input.hasWitness) {
+      throw new Error('BIP143 rejects uncompressed public keys in P2WPKH or P2WSH')
+    }
+
+    //const signature = keyPair.sign(signatureHash)
+    //input.signatures[i] = bscript.signature.encode(signature, hashType)
+    input.signatures[i] = bscript.signature.encode(ChaKeySignature, hashType)
+    
+    return 1;
+  })
+
+  if (!signed) throw new Error('Key pair cannot sign for this input')*/
+ 
+  WaitforSign(input,hashType,ourPubKey,CB);
+  return lasterror;
 }
 
 function signatureHashType (buffer) {

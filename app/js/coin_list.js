@@ -72,24 +72,24 @@ var Coins = {
 		// 	}
 		// },
 
-		// LTC: {
-		// 	name: 'Litecoin',
-		// 	symbol: 'LTC',
-		// 	bip_44_code: '2',
-		// 	library: 'W3LiteCoin',
-		// 	has_own_generate_root: false,
-		// 	rateUrl: 'https://www.okex.com/api/v1/ticker.do?symbol=ltc_usdt',
-		// 	provider: '',
-		// 	devNetUrl: '',
-		// 	wallet: {	"privateKey":"",
-		// 						"publicKey":""},
-		// 	form_fields: {
-		// 		send: [
-		// 			{ key: 'to', name: 'Recipient Address', default: '', unit: ''},
-		// 			{ key: 'value', name: 'Amount', default: '', unit: 'LTC' }
-		// 		]
-		// 	}
-		// }
+		LTC: {
+			name: 'Litecoin',
+			symbol: 'LTC',
+			bip_44_code: '2',
+			library: 'W3LiteCoin',
+			has_own_generate_root: false,
+			rateUrl: 'https://www.okex.com/api/v1/ticker.do?symbol=ltc_usdt',
+			provider: '',
+			devNetUrl: '',
+			wallet: {	"privateKey":"",
+								"publicKey":""},
+			form_fields: {
+				send: [
+					{ key: 'to', name: 'Recipient Address', default: '', unit: ''},
+					{ key: 'value', name: 'Amount', default: '', unit: 'LTC' }
+				]
+			}
+		}
 	},
 
 	PROD: {

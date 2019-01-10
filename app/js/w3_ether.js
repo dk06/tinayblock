@@ -311,7 +311,7 @@ var W3Ether = function(){
 						self.print('Tx Params:', self.txParams);
 						
 						var TokensCount=mIChaKey.GetTokensCount();
-						debugger
+						
 						const privKey = Buffer.from(self.wallet.privateKey, 'hex')
 						var PriKey=wifETH.encode(128,privKey,true);
 						const alice = bitcoinjsETH.ECPair.fromWIF(PriKey)

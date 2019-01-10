@@ -1,7 +1,7 @@
 // const bitcoinjs = require('bitcoinjs-lib');
 // const btcClient = require('bitcoin-core');
 const request = require('request');
-// const bitcoincashjs = require('bitcoincashjs');
+const bitcoincashjs = require('bitcoincashjs');
 var Client=require('./js/Client.js');
 
 var W3BitcoinCash = function(){
